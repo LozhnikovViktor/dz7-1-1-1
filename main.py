@@ -1,47 +1,20 @@
-from user_manager import add_user, remove_user, list_users
+from collections import defaultdict
 
-def main():
-    users = {}  # Словарь для хранения пользователей
-    print("🛠️ Управление пользователями")
 
-    while True:
-        print("\nДоступные команды:")
-        print("• add [имя] [возраст] — добавить пользователя")
-        print("• remove [имя] — удалить пользователя")
-        print("• list — показать всех пользователей")
-        print("• exit — выход")
+def group_words_by_length(words):
 
-        command = input("\nВведите команду: ").strip().split()
 
-        if not command:
-            print("❌ Введите команду!")
-            continue
+    groups = defaultdict(list)
 
-        cmd = command[0].lower()
 
-        if cmd == "exit":
-            print("👋 Выход из программы...")
-            break
+    for word in words:
+        groups[len(word)].append(word)
 
-        elif cmd == "add":
-            if len(command) < 3:
-                print("❌ Использование: add [имя] [возраст]")
-                continue
-            name, age = command[1], command[2]
-            add_user(users, name, age)
 
-        elif cmd == "remove":
-            if len(command) < 2:
-                print("❌ Использование: remove [имя]")
-                continue
-            name = command[1]
-            remove_user(users, name)
+    return dict(groups)
 
-        elif cmd == "list":
-            list_users(users)
 
-        else:
-            print("❌ Неизвестная команда. Доступные команды: add, remove, list, exit")
 
-if __name__ == "__main__":
-    main()
+words = ["apple", "bat", "car", "dog", "elephant", "fish"]
+result = group_words_by_length(words)
+print(result)
